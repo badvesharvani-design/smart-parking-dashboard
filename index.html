@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Smart Parking Dashboard</title>
+
+<style>
+body{
+font-family:Arial;
+text-align:center;
+background:#1e3c72;
+color:white;
+padding-top:80px;
+}
+
+.card{
+background:white;
+color:black;
+width:300px;
+margin:auto;
+padding:20px;
+border-radius:10px;
+}
+.value{
+font-size:30px;
+font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>Smart Parking</h2>
+
+<p>Available Slots</p>
+<div class="value" id="a">--</div>
+
+<p>Occupied Slots</p>
+<div class="value" id="o">--</div>
+
+</div>
+
+<script>
+
+async function load(){
+
+let r = await fetch("https://api.thingspeak.com/channels/3254026/feeds/last.json");
+let d = await r.json();
+
+document.getElementById("a").innerText = d.field1;
+document.getElementById("o").innerText = d.field2;
+
+}
+
+setInterval(load,5000);
+load();
+
+</script>
+
+</body>
+</html>
